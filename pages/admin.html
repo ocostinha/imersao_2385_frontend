@@ -26,9 +26,12 @@
 
     <!-- Meu CSS -->
     <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Meu JS -->
+    <script src="../js/os.js"></script>
 </head>
 
-<body>
+<body onload="carregarOs()">
     <!-- header da página -->
     <header class="p-4 bg-primary text-light mb-5 d-flex justify-content-between align-items-center">
         <!-- 1a. divisão -->
@@ -56,10 +59,12 @@
         <section class="border rounded p-4 my-5">
             <h4 class="display-6">Cadastrar Equipamento</h4>
 
-            <form id="dados" name="dados" method="get" action="">
+            <form id="dados" name="dados" method="get">
 
                 <!-- linha do grid -->
                 <div class="row mb-3">
+
+                    <input type="text" id="id" name="id" style="display: none">
 
                     <div class="col-md-4 my-3">
                         <label for="proprietario" class="form-label">Proprietário</label>
@@ -68,8 +73,8 @@
                     </div>
 
                     <div class="col-md-4 my-3">
-                        <label for="tipo" class="form-label">Tipo de Equipamento</label>
-                        <select name="tipo" id="tipo" class="form-select" required>
+                        <label for="tipoEquipamento" class="form-label">Tipo de Equipamento</label>
+                        <select name="tipoEquipamento" id="tipoEquipamento" class="form-select" required>
                             <option value="0" disabled selected>Selecione o equipamento</option>
                             <option value="1">Equipamento A</option>
                             <option value="2">Equipamento B</option>
@@ -80,8 +85,8 @@
                     </div>
 
                     <div class="col-md-4 my-3">
-                        <label for="dataEntrada" class="form-label">Entrada Lab</label>
-                        <input type="date" id="dataEntrada" name="dataEntrada" class="form-control" required>
+                        <label for="entradaLab" class="form-label">Entrada Lab</label>
+                        <input type="date" id="entradaLab" name="entradaLab" class="form-control" required>
                     </div>
 
                     <div class="col-12 my-3">
@@ -91,13 +96,13 @@
                     </div>
 
                     <div class="col-md-6 my-3">
-                        <label for="dataEntrega" class="form-label">Previsão Entrega</label>
-                        <input type="date" id="dataEntrega" name="dataEntrega" class="form-control">
+                        <label for="previsaoEntrega" class="form-label">Previsão Entrega</label>
+                        <input type="date" id="previsaoEntrega" name="previsaoEntrega" class="form-control">
                     </div>
 
                     <div class="col-md-6 my-3">
-                        <label for="status" class="form-label">Status do conserto</label>
-                        <select name="status" id="status" class="form-select" required>
+                        <label for="statusConcerto" class="form-label">Status do conserto</label>
+                        <select name="statusConcerto" id="statusConcerto" class="form-select" required>
                             <option value="0" disabled selected>Selecione o status</option>
                             <option value="1">Aguardando aprovação</option>
                             <option value="2">Aguardando aprovação</option>
@@ -114,7 +119,8 @@
                     </div>
 
                     <div class="mt-4 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Cadastrar Equipamento >></button>
+                        <button id="botaoCadastrar" type="button" onclick="cadastrarOs()" class="btn btn-primary">Cadastrar Equipamento >></button>
+                        <button id="botaoAtualizar" type="button" onclick="atualizarOs()" class="btn btn-primary" style="display: none">Atualizar Equipamento >></button>
                     </div>
 
                 </div>
@@ -137,7 +143,7 @@
 
             <h6 class="display-6 mt-5 mb-3">Resultado da Busca</h6>
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" id="tabelaBuscar">
                     <thead class="table-primary">
                         <tr>
                             <th>Cod.</th>
@@ -175,7 +181,7 @@
                         </tr>
 
                         <tr>
-                            <td>02</td>
+                            <td>03</td>
                             <td>John Bonhan</td>
                             <td>01/02/2024</td>
                             <td>Fio com mal contato</td>

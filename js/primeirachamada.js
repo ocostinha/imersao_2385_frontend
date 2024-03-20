@@ -10,3 +10,12 @@ function meuPrimeiroFetch() {
         }
     )
 }
+
+async function meuPrimeiroBody() {
+    var response = await fetch("http://localhost:8080/os")
+    if (response.ok) {
+        var texto = await response.text()
+
+        console.log(texto)
+    }
+}
